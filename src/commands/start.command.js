@@ -7,11 +7,13 @@ const commandName = "Start";
  * @param {TelegramBot.Message} msg 
  * @param {TelegramBot} bot 
  */
-const handler = (msg, bot) => {
-    console.log(commandName, ' loaded');
+const handler = async (msg, bot) => {
+    const chatId = msg.chat.id;
+
+    bot.sendMessage(chatId, 'Hello! You\'ve started a bot!');
 };
 
-export default {
+export {
     commandName,
     handler,
 };
