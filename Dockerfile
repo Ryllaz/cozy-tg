@@ -8,4 +8,4 @@ COPY . .
 
 RUN npm i
 
-CMD ["node", "server.js"]
+CMD ["node", "src/server.js"]
