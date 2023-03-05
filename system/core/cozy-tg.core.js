@@ -3,12 +3,14 @@ import config from '../../config.js';
 import fs from 'fs';
 import path from 'path';
 
-function CozyTg(token) {
-    this._token = token;
-    this._commands = {};
-    this._config = config;
+class CozyTg {
+    constructor(token) {
+        this._token = token;
+        this._commands = {};
+        this._config = config;
+    }
 
-    this.init = async () => {
+    async init() {
         await this.loadCommands();
         const bot = new TelegramBot(this._token, { polling: true });
         bot.on('message', async (msg) => {
@@ -25,11 +27,12 @@ function CozyTg(token) {
         });
     };
 
-    this.loadCommands = async () => {
+    async loadCommands() {
         const modules = fs.readdirSync(this._config.commands_path);
 
         for (const module of modules) {
-            if (['.', '..', 'index.js'].includes(module)) continue;
+            if (['.', '..', 'index.js'].includes(module))
+                continue;
 
             const { commandName, handler } = await import(path.join(this._config.commands_path, module));
 
